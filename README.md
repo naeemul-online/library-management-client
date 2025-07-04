@@ -30,7 +30,7 @@ src/
 ## Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/library-management-client.git
+   https://github.com/naeemul-online/library-management-client.git
    cd library-management-client
    ```
 2. Install dependencies:
