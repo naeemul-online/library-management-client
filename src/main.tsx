@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
-        <Toaster position="top-center" />
+        <Toaster position="bottom-right" reverseOrder={false} />
       </ThemeProvider>
     </Provider>
   </StrictMode>
