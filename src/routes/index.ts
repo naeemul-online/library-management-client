@@ -1,10 +1,10 @@
 import App from "@/App";
-import BookListPage from "@/pages/BookListPage";
 import BorrowBookPage from "@/pages/BorrowBookPage";
 import BorrowSummery from "@/pages/BorrowSummery";
 import CreateBookPage from "@/pages/CreateBookPage";
 import EditBookPage from "@/pages/EditBookPage";
 import ErrorPage from "@/pages/ErrorPage";
+import Home from "@/pages/Home";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
@@ -14,11 +14,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: BookListPage,
+        Component: Home,
       },
       {
         path: "books",
-        Component: BookListPage,
+        Component: Home,
       },
       {
         path: "create-book",

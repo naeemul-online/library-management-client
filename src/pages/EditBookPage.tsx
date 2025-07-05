@@ -64,64 +64,73 @@ export default function CreateBookPage() {
   }, [data, reset]);
 
   const onSubmit = async (formData: BookFormValues) => {
-  try {
-    await updateBook({ id, ...formData, available: formData.copies > 0 }).unwrap();
-    toast.success("Book updated successfully");
-    navigate("/books");
-  } catch (err: any) {
-    toast.error(err?.data?.message || "Failed to update book");
-  }
-};
+    try {
+      await updateBook({
+        id,
+        ...formData,
+        available: formData.copies > 0,
+      }).unwrap();
+      toast.success("Book updated successfully");
+      navigate("/books");
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update book");
+    }
+  };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 space-y-4">
-      <h1 className="text-2xl font-semibold">Update Book</h1>
+    <div className="relative overflow-hidden min-h-screen pt-20 pb-8">
+      <div className="max-w-2xl mx-auto p-4 space-y-4">
+        <h1 className="text-2xl font-semibold">Update Book</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label>Title</Label>
-          <Input {...register("title")} />
-          <p className="text-red-500 text-sm">{errors.title?.message}</p>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <Label>Title</Label>
+            <Input {...register("title")} />
+            <p className="text-red-500 text-sm">{errors.title?.message}</p>
+          </div>
 
-        <div>
-          <Label>Author</Label>
-          <Input {...register("author")} />
-          <p className="text-red-500 text-sm">{errors.author?.message}</p>
-        </div>
+          <div>
+            <Label>Author</Label>
+            <Input {...register("author")} />
+            <p className="text-red-500 text-sm">{errors.author?.message}</p>
+          </div>
 
-        <div>
-          <Label>Genre</Label>
-          <select {...register("genre")} className="border px-2 py-1 w-full">
-            <option value="">Select a genre</option>
-            <option value="FICTION">FICTION</option>
-            <option value="NON_FICTION">NON_FICTION</option>
-            <option value="SCIENCE">SCIENCE</option>
-            <option value="HISTORY">HISTORY</option>
-            <option value="BIOGRAPHY">BIOGRAPHY</option>
-            <option value="FANTASY">FANTASY</option>
-          </select>
-          <p className="text-red-500 text-sm">{errors.genre?.message}</p>
-        </div>
+          <div>
+            <Label>Genre</Label>
+            <select {...register("genre")} className="border px-2 py-1 w-full">
+              <option value="">Select a genre</option>
+              <option value="FICTION">FICTION</option>
+              <option value="NON_FICTION">NON_FICTION</option>
+              <option value="SCIENCE">SCIENCE</option>
+              <option value="HISTORY">HISTORY</option>
+              <option value="BIOGRAPHY">BIOGRAPHY</option>
+              <option value="FANTASY">FANTASY</option>
+            </select>
+            <p className="text-red-500 text-sm">{errors.genre?.message}</p>
+          </div>
 
-        <div>
-          <Label>ISBN</Label>
-          <Input {...register("isbn")} />
-          <p className="text-red-500 text-sm">{errors.isbn?.message}</p>
-        </div>
+          <div>
+            <Label>ISBN</Label>
+            <Input {...register("isbn")} />
+            <p className="text-red-500 text-sm">{errors.isbn?.message}</p>
+          </div>
 
-        <div>
-          <Label>Description</Label>
-          <Textarea {...register("description")} />
-        </div>
+          <div>
+            <Label>Description</Label>
+            <Textarea {...register("description")} />
+          </div>
 
-        <div>
-          <Label>Copies</Label>
-          <Input type="number" {...register("copies")} />
-          <p className="text-red-500 text-sm">{errors.copies?.message}</p>
-        </div>
-        <Button type="submit">Update Book</Button>
-      </form>
+          <div>
+            <Label>Copies</Label>
+            <Input type="number" {...register("copies")} />
+            <p className="text-red-500 text-sm">{errors.copies?.message}</p>
+          </div>
+          <div className="flex gap-1">
+            <Button type="submit">Update Book</Button>
+            <Button onClick={() => navigate("/")}>Cancel</Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

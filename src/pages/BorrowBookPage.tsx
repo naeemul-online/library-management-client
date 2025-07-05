@@ -45,7 +45,7 @@ const BorrowBookPage = () => {
       quantity: values.quantity,
       dueDate: values.dueDate,
     };
-    console.log(payload)
+    console.log(payload);
 
     try {
       await addBorrow(payload).unwrap();
@@ -61,29 +61,31 @@ const BorrowBookPage = () => {
   const book = bookData?.data;
 
   return (
-    <div className="max-w-xl mx-auto p-6 space-y-4">
-      <h1 className="text-xl font-semibold">Borrow: {book?.title}</h1>
-      <p className="text-sm text-gray-600">Available Copies: {book?.copies}</p>
+    <div className="relative overflow-hidden min-h-screen pt-20 pb-8">
+      <div className="max-w-2xl mx-auto p-4 space-y-4">
+        <h1 className="text-xl font-semibold">Borrow: {book?.title}</h1>
+        <p className="text-sm ">Available Copies: {book?.copies}</p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label>Quantity</Label>
-          <Input type="number" {...register("quantity")} />
-          {errors.quantity && (
-            <p className="text-red-500 text-sm">{errors.quantity.message}</p>
-          )}
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <Label>Quantity</Label>
+            <Input type="number" {...register("quantity")} />
+            {errors.quantity && (
+              <p className="text-red-500 text-sm">{errors.quantity.message}</p>
+            )}
+          </div>
 
-        <div>
-          <Label>Due Date</Label>
-          <Input type="date" {...register("dueDate")} />
-          {errors.dueDate && (
-            <p className="text-red-500 text-sm">{errors.dueDate.message}</p>
-          )}
-        </div>
+          <div>
+            <Label>Due Date</Label>
+            <Input type="date" {...register("dueDate")} />
+            {errors.dueDate && (
+              <p className="text-red-500 text-sm">{errors.dueDate.message}</p>
+            )}
+          </div>
 
-        <Button type="submit">Confirm Borrow</Button>
-      </form>
+          <Button type="submit">Confirm Borrow</Button>
+        </form>
+      </div>
     </div>
   );
 };

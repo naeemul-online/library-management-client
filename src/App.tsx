@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import "./App.css";
-import NavBar from "./components/layout/NavBar";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <main className="container mx-auto px-4">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }
