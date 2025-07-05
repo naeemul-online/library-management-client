@@ -12,6 +12,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const bookSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -45,6 +52,8 @@ export default function CreateBookPage() {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
   } = useForm<BookFormValues>({
     resolver: zodResolver(bookSchema),
     defaultValues: {
@@ -78,56 +87,98 @@ export default function CreateBookPage() {
   };
 
   return (
-    <div className="relative overflow-hidden min-h-screen pt-20 pb-8">
-      <div className="max-w-2xl mx-auto p-4 space-y-4">
-        <h1 className="text-2xl font-semibold">Update Book</h1>
+    <div className="relative overflow-hidden min-h-screen pt-24 pb-12 bg-background text-foreground">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold mb-6">✏️ Update Book</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Title */}
           <div>
-            <Label>Title</Label>
-            <Input {...register("title")} />
-            <p className="text-red-500 text-sm">{errors.title?.message}</p>
+            <Label htmlFor="title">Title</Label>
+            <Input id="title" {...register("title")} />
+            {errors.title && (
+              <p className="text-sm text-destructive mt-1">
+                {errors.title.message}
+              </p>
+            )}
           </div>
 
+          {/* Author */}
           <div>
-            <Label>Author</Label>
-            <Input {...register("author")} />
-            <p className="text-red-500 text-sm">{errors.author?.message}</p>
+            <Label htmlFor="author">Author</Label>
+            <Input id="author" {...register("author")} />
+            {errors.author && (
+              <p className="text-sm text-destructive mt-1">
+                {errors.author.message}
+              </p>
+            )}
           </div>
+
+          {/* Genre */}
 
           <div>
             <Label>Genre</Label>
-            <select {...register("genre")} className="border px-2 py-1 w-full">
-              <option value="">Select a genre</option>
-              <option value="FICTION">FICTION</option>
-              <option value="NON_FICTION">NON_FICTION</option>
-              <option value="SCIENCE">SCIENCE</option>
-              <option value="HISTORY">HISTORY</option>
-              <option value="BIOGRAPHY">BIOGRAPHY</option>
-              <option value="FANTASY">FANTASY</option>
-            </select>
-            <p className="text-red-500 text-sm">{errors.genre?.message}</p>
+            <Select
+              onValueChange={(value: any) => setValue("genre", value)}
+              defaultValue={watch("genre")}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a genre" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="FICTION">FICTION</SelectItem>
+                <SelectItem value="NON_FICTION">NON FICTION</SelectItem>
+                <SelectItem value="SCIENCE">SCIENCE</SelectItem>
+                <SelectItem value="HISTORY">HISTORY</SelectItem>
+                <SelectItem value="BIOGRAPHY">BIOGRAPHY</SelectItem>
+                <SelectItem value="FANTASY">FANTASY</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.genre && (
+              <p className="text-sm text-destructive mt-1">
+                {errors.genre.message}
+              </p>
+            )}
           </div>
 
+          {/* ISBN */}
           <div>
-            <Label>ISBN</Label>
-            <Input {...register("isbn")} />
-            <p className="text-red-500 text-sm">{errors.isbn?.message}</p>
+            <Label htmlFor="isbn">ISBN</Label>
+            <Input id="isbn" {...register("isbn")} />
+            {errors.isbn && (
+              <p className="text-sm text-destructive mt-1">
+                {errors.isbn.message}
+              </p>
+            )}
           </div>
 
+          {/* Description */}
           <div>
-            <Label>Description</Label>
-            <Textarea {...register("description")} />
+            <Label htmlFor="description">Description</Label>
+            <Textarea id="description" {...register("description")} />
           </div>
 
+          {/* Copies */}
           <div>
-            <Label>Copies</Label>
-            <Input type="number" {...register("copies")} />
-            <p className="text-red-500 text-sm">{errors.copies?.message}</p>
+            <Label htmlFor="copies">Copies</Label>
+            <Input id="copies" type="number" {...register("copies")} />
+            {errors.copies && (
+              <p className="text-sm text-destructive mt-1">
+                {errors.copies.message}
+              </p>
+            )}
           </div>
-          <div className="flex gap-1">
+
+          {/* Buttons */}
+          <div className="flex gap-4 justify-end">
             <Button type="submit">Update Book</Button>
-            <Button onClick={() => navigate("/")}>Cancel</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => navigate("/")}
+            >
+              Cancel
+            </Button>
           </div>
         </form>
       </div>

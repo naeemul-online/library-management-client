@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import z from "zod";
+import { motion } from "framer-motion";
 
 // Zod schema for validation
 const borrowSchema = z.object({
@@ -61,32 +62,50 @@ const BorrowBookPage = () => {
   const book = bookData?.data;
 
   return (
-    <div className="relative overflow-hidden min-h-screen pt-20 pb-8">
-      <div className="max-w-2xl mx-auto p-4 space-y-4">
-        <h1 className="text-xl font-semibold">Borrow: {book?.title}</h1>
-        <p className="text-sm ">Available Copies: {book?.copies}</p>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="relative overflow-hidden min-h-screen pt-24 pb-12 bg-background text-foreground"
+    >
+      <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 bg-card border border-border shadow-lg rounded-xl p-6 space-y-6">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-semibold">Borrow: {book?.title}</h1>
+          <p className="text-muted-foreground text-sm">
+            Available Copies:{" "}
+            <span className="font-medium">{book?.copies}</span>
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Quantity */}
           <div>
             <Label>Quantity</Label>
-            <Input type="number" {...register("quantity")} />
+            <Input type="number" min={1} {...register("quantity")} />
             {errors.quantity && (
-              <p className="text-red-500 text-sm">{errors.quantity.message}</p>
+              <p className="text-destructive text-sm mt-1">
+                {errors.quantity.message}
+              </p>
             )}
           </div>
 
+          {/* Due Date */}
           <div>
             <Label>Due Date</Label>
             <Input type="date" {...register("dueDate")} />
             {errors.dueDate && (
-              <p className="text-red-500 text-sm">{errors.dueDate.message}</p>
+              <p className="text-destructive text-sm mt-1">
+                {errors.dueDate.message}
+              </p>
             )}
           </div>
 
-          <Button type="submit">Confirm Borrow</Button>
+          <Button type="submit" className="w-full">
+            Confirm Borrow
+          </Button>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
