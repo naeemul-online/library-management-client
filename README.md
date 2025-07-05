@@ -2,6 +2,9 @@
 
 A modern frontend application for managing library books, built with React, TypeScript, Redux Toolkit (RTK Query), Tailwind CSS, and ShadCN UI.
 
+## Live Link
+https://library-client-ten.vercel.app/
+
 ## Features
 - **Book Management**: View, create, edit, and delete books (Title, Author, Genre, ISBN, Copies, Availability) with form validation and confirmation dialogs.
 - **Borrow Books**: Form to borrow books with quantity and due date, auto-updating availability (prevents over-borrowing).
